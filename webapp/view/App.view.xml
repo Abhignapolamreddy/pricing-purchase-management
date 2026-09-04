@@ -1,0 +1,143 @@
+<mvc:View
+    id="appView"
+    controllerName="purchasemanagement.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt">
+
+    <tnt:ToolPage
+        id="toolPage">
+
+        <!-- Application Header -->
+        <tnt:header>
+
+            <tnt:ToolHeader
+                id="toolHeader">
+
+                <Button
+                    id="menuButton"
+                    icon="sap-icon://menu2"
+                    type="Transparent"
+                    tooltip="Toggle Navigation"
+                    press=".onToggleSideNavigation" />
+
+                <Title
+                    id="appTitle"
+                    text="Purchase Order Management"
+                    level="H2"
+                    class="sapUiSmallMarginBegin" />
+
+                <ToolbarSpacer
+                    id="headerSpacer" />
+
+                <Button
+                    id="searchButton"
+                    icon="sap-icon://search"
+                    type="Transparent"
+                    tooltip="Search"
+                    press=".onSearch" />
+
+                <Button
+                    id="notificationButton"
+                    icon="sap-icon://bell"
+                    type="Transparent"
+                    tooltip="Notifications"
+                    press=".onNotifications" />
+
+                <Button
+                    id="userButton"
+                    icon="sap-icon://person-placeholder"
+                    type="Transparent"
+                    tooltip="User"
+                    press=".onUserPress" />
+
+            </tnt:ToolHeader>
+
+        </tnt:header>
+
+
+        <!-- Left Navigation -->
+        <tnt:sideContent>
+
+            <tnt:SideNavigation
+                id="sideNavigation"
+                expanded="true"
+                itemSelect=".onNavigationSelect">
+
+                <tnt:NavigationList
+                    id="navigationList">
+
+                    <tnt:NavigationListItem
+                        id="homeNavigation"
+                        key="home"
+                        text="Home"
+                        icon="sap-icon://home" />
+
+                    <tnt:NavigationListItem
+                        id="purchaseNavigation"
+                        key="purchase"
+                        text="Purchase Orders"
+                        icon="sap-icon://sales-order">
+
+                        <tnt:NavigationListItem
+                            id="allOrdersNavigation"
+                            key="allOrders"
+                            text="All Purchase Orders" />
+
+                        <tnt:NavigationListItem
+                            id="createOrderNavigation"
+                            key="createOrder"
+                            text="Create Purchase Order" />
+
+                    </tnt:NavigationListItem>
+
+
+                    <tnt:NavigationListItem
+                        id="pricingNavigation"
+                        key="pricing"
+                        text="Pricing"
+                        icon="sap-icon://money-bills">
+
+                        <tnt:NavigationListItem
+                            id="productsNavigation"
+                            key="products"
+                            text="Products" />
+
+                        <tnt:NavigationListItem
+                            id="priceMasterNavigation"
+                            key="priceMaster"
+                            text="Price Master" />
+
+                        <tnt:NavigationListItem
+                            id="priceHistoryNavigation"
+                            key="priceHistory"
+                            text="Price History" />
+
+                    </tnt:NavigationListItem>
+
+
+                    <tnt:NavigationListItem
+                        id="analyticsNavigation"
+                        key="analytics"
+                        text="Analytics"
+                        icon="sap-icon://business-objects-experience" />
+
+                </tnt:NavigationList>
+
+            </tnt:SideNavigation>
+
+        </tnt:sideContent>
+
+
+        <!-- Application Pages -->
+        <tnt:mainContents>
+
+            <NavContainer
+                id="app" />
+
+        </tnt:mainContents>
+
+    </tnt:ToolPage>
+
+</mvc:View>

@@ -1,0 +1,391 @@
+<mvc:View
+    id="purchaseView"
+    controllerName="purchasemanagement.controller.Purchase"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout">
+
+    <Page
+        id="purchasePage"
+        title="Home">
+
+        <content>
+
+            <VBox
+                id="dashboardContainer"
+                class="sapUiMediumMargin">
+
+                <!-- Page Header -->
+                <VBox
+                    id="pageHeader"
+                    class="sapUiSmallMarginBottom">
+
+                    <Title
+                        id="dashboardTitle"
+                        text="Purchase Order Management"
+                        level="H1" />
+
+                    <Text
+                        id="dashboardDescription"
+                        text="Overview of purchase orders and purchasing activities"
+                        class="sapUiTinyMarginTop" />
+
+                </VBox>
+
+
+                <!-- KPI Cards -->
+                <l:Grid
+                    id="kpiGrid"
+                    defaultSpan="XL3 L3 M6 S12"
+                    hSpacing="1"
+                    vSpacing="1">
+
+                    <!-- Total Purchase Orders -->
+                    <GenericTile
+                        id="totalPOTile"
+                        header="Total Purchase Orders"
+                        subheader="All purchase orders"
+                        press=".onPurchaseOrders">
+
+                        <TileContent
+                            id="totalPOTileContent">
+
+                            <NumericContent
+                                id="totalPOValue"
+                                value="{dashboard>/totalPOs}"
+                                icon="sap-icon://sales-order"
+                                valueColor="Neutral" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- Pending -->
+                    <GenericTile
+                        id="pendingPOTile"
+                        header="Pending Orders"
+                        subheader="Pending approval"
+                        press=".onPurchaseOrders">
+
+                        <TileContent
+                            id="pendingPOTileContent">
+
+                            <NumericContent
+                                id="pendingPOValue"
+                                value="{dashboard>/pendingPOs}"
+                                icon="sap-icon://pending"
+                                valueColor="Critical" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- Approved -->
+                    <GenericTile
+                        id="approvedPOTile"
+                        header="Approved Orders"
+                        subheader="Successfully approved"
+                        press=".onPurchaseOrders">
+
+                        <TileContent
+                            id="approvedPOTileContent">
+
+                            <NumericContent
+                                id="approvedPOValue"
+                                value="{dashboard>/approvedPOs}"
+                                icon="sap-icon://accept"
+                                valueColor="Good" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- Purchase Value -->
+                    <GenericTile
+                        id="purchaseValueTile"
+                        header="Purchase Value"
+                        subheader="Total order value">
+
+                        <TileContent
+                            id="purchaseValueTileContent">
+
+                            <NumericContent
+                                id="purchaseValue"
+                                value="{dashboard>/totalValue}"
+                                scale="INR"
+                                icon="sap-icon://money-bills"
+                                valueColor="Neutral" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                </l:Grid>
+
+
+                <!-- Main Dashboard Content -->
+                <l:Grid
+                    id="dashboardContentGrid"
+                    defaultSpan="XL6 L6 M12 S12"
+                    hSpacing="1"
+                    vSpacing="1"
+                    class="sapUiMediumMarginTop">
+
+
+                    <!-- Purchase Order Status -->
+                    <Panel
+                        id="statusPanel"
+                        headerText="Purchase Order Status"
+                        expandable="false">
+
+                        <content>
+
+                            <VBox
+                                id="statusContent"
+                                class="sapUiSmallMargin">
+
+                                <HBox
+                                    id="pendingStatusRow"
+                                    justifyContent="SpaceBetween"
+                                    class="sapUiTinyMarginBottom">
+
+                                    <Text
+                                        id="pendingStatusLabel"
+                                        text="Pending / Submitted" />
+
+                                    <ObjectNumber
+                                        id="pendingStatusValue"
+                                        number="{dashboard>/pendingPOs}" />
+
+                                </HBox>
+
+
+                                <HBox
+                                    id="approvedStatusRow"
+                                    justifyContent="SpaceBetween"
+                                    class="sapUiTinyMarginBottom">
+
+                                    <Text
+                                        id="approvedStatusLabel"
+                                        text="Approved" />
+
+                                    <ObjectNumber
+                                        id="approvedStatusValue"
+                                        number="{dashboard>/approvedPOs}" />
+
+                                </HBox>
+
+
+                                <HBox
+                                    id="rejectedStatusRow"
+                                    justifyContent="SpaceBetween"
+                                    class="sapUiTinyMarginBottom">
+
+                                    <Text
+                                        id="rejectedStatusLabel"
+                                        text="Rejected" />
+
+                                    <ObjectNumber
+                                        id="rejectedStatusValue"
+                                        number="{dashboard>/rejectedPOs}" />
+
+                                </HBox>
+
+
+                                <HBox
+                                    id="deliveredStatusRow"
+                                    justifyContent="SpaceBetween">
+
+                                    <Text
+                                        id="deliveredStatusLabel"
+                                        text="Delivered" />
+
+                                    <ObjectNumber
+                                        id="deliveredStatusValue"
+                                        number="{dashboard>/deliveredPOs}" />
+
+                                </HBox>
+
+                            </VBox>
+
+                        </content>
+
+                    </Panel>
+
+
+                    <!-- Quick Actions -->
+                    <Panel
+                        id="quickActionsPanel"
+                        headerText="Quick Actions"
+                        expandable="false">
+
+                        <content>
+
+                            <VBox
+                                id="quickActionsContent"
+                                class="sapUiSmallMargin">
+
+                                <Button
+                                    id="createPOButton"
+                                    text="Create Purchase Order"
+                                    icon="sap-icon://add-document"
+                                    type="Emphasized"
+                                    width="100%"
+                                    press=".onCreatePO"
+                                    class="sapUiTinyMarginBottom" />
+
+                                <Button
+                                    id="viewPOButton"
+                                    text="View Purchase Orders"
+                                    icon="sap-icon://sales-order"
+                                    width="100%"
+                                    press=".onPurchaseOrders"
+                                    class="sapUiTinyMarginBottom" />
+
+                                <Button
+                                    id="productsButton"
+                                    text="Products"
+                                    icon="sap-icon://product"
+                                    width="100%"
+                                    press=".onProducts"
+                                    class="sapUiTinyMarginBottom" />
+
+                                <Button
+                                    id="priceMasterButton"
+                                    text="Price Master"
+                                    icon="sap-icon://money-bills"
+                                    width="100%"
+                                    press=".onPriceMaster"
+                                    class="sapUiTinyMarginBottom" />
+
+                                <Button
+                                    id="analyticsButton"
+                                    text="Purchase Analytics"
+                                    icon="sap-icon://business-objects-experience"
+                                    width="100%"
+                                    press=".onAnalytics" />
+
+                            </VBox>
+
+                        </content>
+
+                    </Panel>
+
+                </l:Grid>
+
+
+                <!-- Recent Purchase Orders -->
+                <Panel
+                    id="recentOrdersPanel"
+                    headerText="Recent Purchase Orders"
+                    class="sapUiMediumMarginTop">
+
+                    <Table
+                        id="recentOrdersTable"
+                        growing="true"
+                        growingThreshold="5"
+                        items="{
+    path: 'purchase>/PurchaseOrders',
+    parameters: {
+        $orderby: 'createdAt desc',
+        $expand: 'dealer'
+    }
+}">
+
+                        <columns>
+
+                            <Column
+                                id="poNumberColumn">
+                                <Text
+                                    id="poNumberColumnText"
+                                    text="PO Number" />
+                            </Column>
+
+                            <Column
+                                id="dealerColumn">
+                                <Text
+                                    id="dealerColumnText"
+                                    text="Dealer" />
+                            </Column>
+
+                            <Column
+                                id="orderDateColumn">
+                                <Text
+                                    id="orderDateColumnText"
+                                    text="Order Date" />
+                            </Column>
+
+                            <Column
+                                id="amountColumn">
+                                <Text
+                                    id="amountColumnText"
+                                    text="Amount" />
+                            </Column>
+
+                            <Column
+                                id="statusColumn">
+                                <Text
+                                    id="statusColumnText"
+                                    text="Status" />
+                            </Column>
+
+                        </columns>
+
+
+                        <items>
+
+                            <ColumnListItem
+                                id="recentOrderItem"
+                                type="Navigation"
+                                press=".onPOPress">
+
+                                <cells>
+
+                                    <Text
+                                        id="poNumberText"
+                                        text="{purchase>poNumber}" />
+
+                                    <Text
+                                        id="dealerNameText"
+                                        text="{purchase>dealer/dealerName}" />
+
+                                    <Text
+                                        id="orderDateText"
+                                        text="{
+                                            path: 'purchase>orderDate',
+                                            formatter: '.formatter.formatDate'
+                                        }" />
+
+                                    <ObjectNumber
+                                        id="amountText"
+                                        number="{purchase>totalAmount}"
+                                        unit="INR" />
+
+                                    <ObjectStatus
+                                        id="statusText"
+                                        text="{purchase>status}"
+                                        state="{
+                                            path: 'purchase>status',
+                                            formatter: '.formatter.statusState'
+                                        }" />
+
+                                </cells>
+
+                            </ColumnListItem>
+
+                        </items>
+
+                    </Table>
+
+                </Panel>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>
