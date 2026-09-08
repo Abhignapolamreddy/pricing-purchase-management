@@ -45,7 +45,6 @@
 
             </Toolbar>
 
-
             <Toolbar id="purchaseOrders_filterToolbar">
 
                 <Label
@@ -98,8 +97,6 @@
 
             </Toolbar>
 
-
-            <!-- ACTIONS -->
             <Toolbar id="purchaseOrders_actionToolbar">
 
                 <Title
@@ -114,7 +111,6 @@
                     id="purchaseOrders_editActionButton"
                     text="Edit"
                     icon="sap-icon://edit"
-                    type="Transparent"
                     enabled="false"
                     press=".onEditPO" />
 
@@ -130,19 +126,17 @@
                     id="purchaseOrders_deleteActionButton"
                     text="Delete"
                     icon="sap-icon://delete"
-                    type="Transparent"
                     enabled="false"
                     press=".onDeletePO" />
 
             </Toolbar>
 
-
-            <!-- TABLE -->
             <Table
                 id="purchaseOrders_table"
                 mode="MultiSelect"
                 growing="true"
                 growingThreshold="20"
+                growingScrollToLoad="true"
                 selectionChange=".onSelectionChange"
                 updateFinished=".onTableUpdateFinished"
                 items="{
@@ -206,8 +200,7 @@
 
                         <cells>
 
-                            <Text
-                                text="{purchase>poNumber}" />
+                            <Text text="{purchase>poNumber}" />
 
                             <Text
                                 text="{purchase>dealer/dealerCode}" />
@@ -215,8 +208,7 @@
                             <Text
                                 text="{purchase>dealer/dealerName}" />
 
-                            <Text
-                                text="{purchase>orderDate}" />
+                            <Text text="{purchase>orderDate}" />
 
                             <ObjectNumber
                                 number="{purchase>totalAmount}"

@@ -9,7 +9,10 @@
     <tnt:ToolPage
         id="toolPage">
 
-        <!-- Application Header -->
+        <!-- ===================================================== -->
+        <!-- APPLICATION HEADER -->
+        <!-- ===================================================== -->
+
         <tnt:header>
 
             <tnt:ToolHeader
@@ -57,7 +60,10 @@
         </tnt:header>
 
 
-        <!-- Left Navigation -->
+        <!-- ===================================================== -->
+        <!-- LEFT NAVIGATION -->
+        <!-- ===================================================== -->
+
         <tnt:sideContent>
 
             <tnt:SideNavigation
@@ -68,11 +74,21 @@
                 <tnt:NavigationList
                     id="navigationList">
 
+
+                    <!-- ================================================= -->
+                    <!-- DASHBOARD -->
+                    <!-- ================================================= -->
+
                     <tnt:NavigationListItem
-                        id="homeNavigation"
-                        key="home"
-                        text="Home"
+                        id="dashboardNavigation"
+                        key="dashboard"
+                        text="Dashboard"
                         icon="sap-icon://home" />
+
+
+                    <!-- ================================================= -->
+                    <!-- PURCHASE ORDERS -->
+                    <!-- ================================================= -->
 
                     <tnt:NavigationListItem
                         id="purchaseNavigation"
@@ -93,16 +109,20 @@
                     </tnt:NavigationListItem>
 
 
+                    <!-- ================================================= -->
+                    <!-- PRICING -->
+                    <!-- ================================================= -->
+
                     <tnt:NavigationListItem
                         id="pricingNavigation"
                         key="pricing"
                         text="Pricing"
                         icon="sap-icon://money-bills">
 
-                        <tnt:NavigationListItem
+                        <!-- <tnt:NavigationListItem
                             id="productsNavigation"
                             key="products"
-                            text="Products" />
+                            text="Products" /> -->
 
                         <tnt:NavigationListItem
                             id="priceMasterNavigation"
@@ -117,6 +137,36 @@
                     </tnt:NavigationListItem>
 
 
+                    <!-- ================================================= -->
+                    <!-- INVENTORY -->
+                    <!-- ================================================= -->
+
+                    <tnt:NavigationListItem
+                        id="inventoryNavigation"
+                        key="inventory"
+                        text="Inventory"
+                        icon="sap-icon://inventory">
+                    <tnt:NavigationListItem
+                            id="productsNavigation"
+                            key="products"
+                            text="Products" />
+                        <tnt:NavigationListItem
+                            id="warehouseNavigation"
+                            key="warehouses"
+                            text="Warehouses" />
+
+                        <tnt:NavigationListItem
+                            id="stockNavigation"
+                            key="stock"
+                            text="Stock" />
+
+                    </tnt:NavigationListItem>
+
+
+                    <!-- ================================================= -->
+                    <!-- ANALYTICS -->
+                    <!-- ================================================= -->
+
                     <tnt:NavigationListItem
                         id="analyticsNavigation"
                         key="analytics"
@@ -130,7 +180,10 @@
         </tnt:sideContent>
 
 
-        <!-- Application Pages -->
+        <!-- ===================================================== -->
+        <!-- APPLICATION PAGES -->
+        <!-- ===================================================== -->
+
         <tnt:mainContents>
 
             <NavContainer

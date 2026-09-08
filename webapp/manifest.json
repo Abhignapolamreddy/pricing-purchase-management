@@ -22,7 +22,6 @@
     },
 
     "dataSources": {
-
       "mainService": {
         "uri": "/odata/v4/purchase-order/",
         "type": "OData",
@@ -31,7 +30,6 @@
           "odataVersion": "4.0"
         }
       }
-
     },
 
     "crossNavigation": {
@@ -49,9 +47,7 @@
     }
   },
 
-
   "sap.ui": {
-
     "technology": "UI5",
 
     "icons": {
@@ -70,13 +66,10 @@
     }
   },
 
-
   "sap.ui5": {
-
     "flexEnabled": true,
 
     "dependencies": {
-
       "minUI5Version": "1.152.0",
 
       "libs": {
@@ -87,15 +80,12 @@
       }
     },
 
-
     "contentDensities": {
       "compact": true,
       "cozy": true
     },
 
-
     "models": {
-
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
 
@@ -104,11 +94,8 @@
         }
       },
 
-
       "purchase": {
-
         "dataSource": "mainService",
-
         "preload": true,
 
         "settings": {
@@ -117,12 +104,9 @@
           "earlyRequests": true
         }
       }
-
     },
 
-
     "resources": {
-
       "css": [
         {
           "uri": "css/style.css"
@@ -130,195 +114,157 @@
       ]
     },
 
-
     "routing": {
-
       "config": {
-
         "routerClass": "sap.m.routing.Router",
-
         "controlAggregation": "pages",
-
         "controlId": "app",
-
         "transition": "slide",
-
         "type": "View",
-
         "viewType": "XML",
-
         "path": "purchasemanagement.view",
-
         "viewPath": "purchasemanagement.view",
-
         "async": true
       },
-
 
       "routes": [
 
         {
           "name": "Purchase",
-
           "pattern": "",
-
           "target": "Purchase"
         },
 
-
         {
           "name": "PurchaseOrders",
-
           "pattern": "purchase-orders",
-
           "target": "PurchaseOrders"
         },
 
-
         {
           "name": "CreatePurchaseOrder",
-
           "pattern": "create-po",
-
           "target": "CreatePurchaseOrder"
         },
 
-
         {
           "name": "PODetail",
-
           "pattern": "po/{ID}",
-
           "target": "PODetail"
         },
 
-
         {
           "name": "Products",
-
           "pattern": "products",
-
           "target": "Products"
         },
 
+        {
+          "name": "Warehouses",
+          "pattern": "warehouses",
+          "target": "Warehouses"
+        },
+
+        {
+          "name": "Stock",
+          "pattern": "stock",
+          "target": "Stock"
+        },
 
         {
           "name": "PriceMaster",
-
           "pattern": "price-master",
-
           "target": "PriceMaster"
         },
 
+        {
+          "name": "EditPurchaseOrder",
+          "pattern": "purchase-orders/edit/{ID}",
+          "target": "EditPurchaseOrder"
+        },
 
         {
           "name": "PriceHistory",
-
           "pattern": "price-history",
-
           "target": "PriceHistory"
         },
 
-
         {
           "name": "Analytics",
-
           "pattern": "analytics",
-
           "target": "Analytics"
         }
-
       ],
-
 
       "targets": {
 
         "Purchase": {
-
           "id": "Purchase",
-
           "name": "Purchase"
         },
 
-
         "PurchaseOrders": {
-
           "id": "PurchaseOrders",
-
           "name": "PurchaseOrders"
         },
 
-
         "CreatePurchaseOrder": {
-
           "id": "CreatePurchaseOrder",
-
           "name": "CreatePurchaseOrder"
         },
 
-
         "PODetail": {
-
           "id": "PODetail",
-
           "name": "PODetail"
         },
 
-
         "Products": {
-
           "id": "Products",
-
           "name": "Products"
         },
 
+        "Warehouses": {
+          "id": "Warehouses",
+          "name": "Warehouses"
+        },
+
+        "Stock": {
+          "id": "Stock",
+          "name": "Stock"
+        },
 
         "PriceMaster": {
-
           "id": "PriceMaster",
-
           "name": "PriceMaster"
         },
 
+        "EditPurchaseOrder": {
+          "id": "EditPurchaseOrder",
+          "name": "EditPurchaseOrder"
+        },
 
         "PriceHistory": {
-
           "id": "PriceHistory",
-
           "name": "PriceHistory"
         },
 
-
         "Analytics": {
-
           "id": "Analytics",
-
           "name": "Analytics"
         }
-
       }
-
     },
 
-
     "rootView": {
-
       "viewName": "purchasemanagement.view.App",
-
       "type": "XML",
-
       "id": "App",
-
       "async": true
     }
-
   },
 
-
   "sap.cloud": {
-
     "public": true,
-
     "service": "purchasemanagement"
   }
 }
