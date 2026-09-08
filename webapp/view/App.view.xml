@@ -28,6 +28,7 @@
                 <Title
                     id="appTitle"
                     text="Purchase Order Management"
+                    textAlign="Center"
                     level="H2"
                     class="sapUiSmallMarginBegin" />
 

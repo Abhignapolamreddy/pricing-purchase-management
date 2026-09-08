@@ -3,7 +3,8 @@
     controllerName="purchasemanagement.controller.CreatePurchaseOrder"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:core="sap.ui.core">
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout" >
 
     <Page
         id="createPOPage"
@@ -28,26 +29,23 @@
                     expandable="false"
                     class="sapUiSmallMarginBottom">
 
-                    <content>
+                    <l:Grid id="idGrid2" vSpacing="0" >
+                        <Label
+                            id="dealerLabel"
+                            text="Dealer"
+                            required="true"
+                            class="sapUiTinyMarginTop">
+                             <layoutData>
+                                <l:GridData id="idPnl4Lbl1Gd" span="L2 M2"></l:GridData>
+                            </layoutData>    
+                        </Label>
 
-                        <VBox
-                            id="poHeaderContent"
-                            class="sapUiSmallMargin">
-
-
-                            <!-- Dealer -->
-
-                            <Label
-                                id="dealerLabel"
-                                text="Dealer"
-                                required="true" />
-
-                            <Select
-                                id="dealerSelect"
-                                width="100%"
-                                selectedKey="{po>/dealer_ID}"
-                                change=".onDealerChange"
-                                class="sapUiTinyMarginBottom">
+                        <Select
+                            id="dealerSelect"
+                            width="100%"
+                            selectedKey="{po>/dealer_ID}"
+                            change=".onDealerChange"
+                            class="sapUiTinyMarginBottom">
 
                                 <items>
 
@@ -58,15 +56,23 @@
 
                                 </items>
 
+                                <layoutData>
+                                    <l:GridData id="idPnl4In1Gd" span="L4 M4"></l:GridData>
+                                </layoutData>
+
                             </Select>
 
-
-                            <!-- Order Date -->
+                             <!-- Order Date -->
 
                             <Label
                                 id="orderDateLabel"
                                 text="Order Date"
-                                required="true" />
+                                required="true" 
+                                class="sapUiTinyMarginTop" >
+                                <layoutData>
+                                    <l:GridData id="idPnl4Lbl2Gd" span="L3 M3"></l:GridData>
+                                </layoutData>
+                            </Label>
 
                             <DatePicker
                                 id="orderDatePicker"
@@ -74,23 +80,26 @@
                                 value="{po>/orderDate}"
                                 valueFormat="yyyy-MM-dd"
                                 displayFormat="dd-MM-yyyy"
-                                class="sapUiTinyMarginBottom" />
+                                class="sapUiTinyMarginBottom" >
+                                <layoutData>
+                                    <l:GridData id="idPnl4In2Gd" span="L3 M3"></l:GridData>
+                                </layoutData>    
+                            </DatePicker>
 
-
-                            <!-- Status -->
-
-                            <Label
+                             <Label
                                 id="statusLabel"
-                                text="Status" />
+                                text="Status"
+                                class="sapUiTinyMarginTop" />
 
                             <ObjectStatus
                                 id="statusValue"
                                 text="PENDING"
-                                state="Warning" />
+                                state="Warning"
+                                class="sapUiTinyMarginTop" />
 
-                        </VBox>
-
-                    </content>
+                        
+                    </l:Grid>
+                    
 
                 </Panel>
 
@@ -241,6 +250,7 @@
                                             id="productSelect"
                                             width="100%"
                                             selectedKey="{po>product_ID}"
+                                            forceSelection="false"
                                             change=".onProductChange"
                                             items="{products>/}">
 

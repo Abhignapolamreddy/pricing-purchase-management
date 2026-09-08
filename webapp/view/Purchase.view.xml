@@ -3,7 +3,13 @@
     controllerName="purchasemanagement.controller.Purchase"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:l="sap.ui.layout">
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    >
 
     <Page
         id="purchasePage"
@@ -129,14 +135,13 @@
                 <!-- Main Dashboard Content -->
                 <l:Grid
                     id="dashboardContentGrid"
-                    defaultSpan="XL6 L6 M12 S12"
                     hSpacing="1"
                     vSpacing="1"
                     class="sapUiMediumMarginTop">
 
 
                     <!-- Purchase Order Status -->
-                    <Panel
+                    <!-- <Panel
                         id="statusPanel"
                         headerText="Purchase Order Status"
                         expandable="false">
@@ -213,14 +218,50 @@
 
                         </content>
 
-                    </Panel>
+                    </Panel> -->
+    <Panel id="idPnlChart" headerText="Regions"  >
+
+        <viz:VizFrame id="idVizFrame" vizType="column" height="90%" width="100%" >
+          <viz:dataset>
+
+            <viz.data:FlattenedDataset
+                id="idChartFlDataSet"
+                data="{
+                    path: 'purchase>/Regions',
+                    parameters: { $select: 'ID,regionCode,regionName,totalPurchaseValue' }
+                }">
+              <viz.data:dimensions>
+                <viz.data:DimensionDefinition id="idVizDataDmsnDef1" name="Region Code" value="{regionCode}" ></viz.data:DimensionDefinition>
+                <viz.data:DimensionDefinition id="idVizDataDmsnDef2" name="Region" value="{regionName}" ></viz.data:DimensionDefinition>
+
+              </viz.data:dimensions>
+
+              <viz.data:measures>
+                <viz.data:MeasureDefinition id="idVizDataMeasureDef" name="Purchase Value" value="{totalPurchaseValue}" ></viz.data:MeasureDefinition>
+              </viz.data:measures>
+            </viz.data:FlattenedDataset>
+          
+          </viz:dataset>
+
+          <viz:feeds>
+
+            <viz.feeds:FeedItem id="idVizFeedItmDM" uid="categoryAxis" type="Dimension" values="Region Code,Region" ></viz.feeds:FeedItem>
+            <viz.feeds:FeedItem id="idVizFeedItmMS" uid="valueAxis" type="Measure" values="Purchase Value" ></viz.feeds:FeedItem> 
+          </viz:feeds>
+
+        </viz:VizFrame>
+        <layoutData>
+              <l:GridData id="idPnl4Lbl1Chart" span="L7 M7"></l:GridData>
+        </layoutData>
+      </Panel>
 
 
                     <!-- Quick Actions -->
                     <Panel
                         id="quickActionsPanel"
                         headerText="Quick Actions"
-                        expandable="false">
+                        expandable="false"
+                        >
 
                         <content>
 
@@ -271,6 +312,9 @@
                             </VBox>
 
                         </content>
+                        <layoutData>
+                            <l:GridData id="idPnl4Lbl1QA" span="L5 M5"></l:GridData>
+                        </layoutData>
 
                     </Panel>
 
@@ -288,12 +332,12 @@
                         growing="true"
                         growingThreshold="5"
                         items="{
-    path: 'purchase>/PurchaseOrders',
-    parameters: {
-        $orderby: 'createdAt desc',
-        $expand: 'dealer'
-    }
-}">
+                        path: 'purchase>/PurchaseOrders',
+                        parameters: {
+                            $orderby: 'createdAt desc',
+                            $expand: 'dealer'
+                        }
+                    }">
 
                         <columns>
 

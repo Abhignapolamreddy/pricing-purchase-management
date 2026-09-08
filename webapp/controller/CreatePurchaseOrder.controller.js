@@ -734,289 +734,289 @@ sap.ui.define([
 
             onCreatePO: async function () {
 
-    var oPOModel =
-        this.getView()
-            .getModel("po");
+                var oPOModel =
+                    this.getView()
+                        .getModel("po");
 
-    var sDealerID =
-        oPOModel.getProperty("/dealer_ID");
+                var sDealerID =
+                    oPOModel.getProperty("/dealer_ID");
 
-    var sOrderDate =
-        oPOModel.getProperty("/orderDate");
+                var sOrderDate =
+                    oPOModel.getProperty("/orderDate");
 
-    var aItems =
-        oPOModel.getProperty("/items") || [];
+                var aItems =
+                    oPOModel.getProperty("/items") || [];
 
 
-    // =====================================================
-    // VALIDATION
-    // =====================================================
+                // =====================================================
+                // VALIDATION
+                // =====================================================
 
-    if (!sDealerID) {
+                if (!sDealerID) {
 
-        MessageBox.error(
-            "Please select an ACTIVE dealer."
-        );
+                    MessageBox.error(
+                        "Please select an ACTIVE dealer."
+                    );
 
-        return;
-    }
+                    return;
+                }
 
 
-    if (!sOrderDate) {
+                if (!sOrderDate) {
 
-        MessageBox.error(
-            "Please select the order date."
-        );
+                    MessageBox.error(
+                        "Please select the order date."
+                    );
 
-        return;
-    }
+                    return;
+                }
 
 
-    if (aItems.length === 0) {
+                if (aItems.length === 0) {
 
-        MessageBox.error(
-            "Please add at least one product."
-        );
+                    MessageBox.error(
+                        "Please add at least one product."
+                    );
 
-        return;
-    }
+                    return;
+                }
 
 
-    // Validate every item
+                // Validate every item
 
-    for (
-        var i = 0;
-        i < aItems.length;
-        i++
-    ) {
+                for (
+                    var i = 0;
+                    i < aItems.length;
+                    i++
+                ) {
 
-        var oItem =
-            aItems[i];
+                    var oItem =
+                        aItems[i];
 
 
-        if (!oItem.product_ID) {
+                    if (!oItem.product_ID) {
 
-            MessageBox.error(
-                "Please select a product for item " +
-                (i + 1) +
-                "."
-            );
-
-            return;
-        }
-
-
-        if (
-            Number(oItem.quantity || 0) <= 0
-        ) {
-
-            MessageBox.error(
-                "Quantity must be greater than zero for item " +
-                (i + 1) +
-                "."
-            );
-
-            return;
-        }
-
-
-        if (
-            Number(oItem.unitPrice || 0) <= 0
-        ) {
-
-            MessageBox.error(
-                "No valid ACTIVE price found for item " +
-                (i + 1) +
-                "."
-            );
-
-            return;
-        }
-
-    }
-
-
-    // =====================================================
-    // CALCULATE TOTALS
-    // =====================================================
-
-    this._calculateTotals();
-
-
-    var nSubtotal =
-        Number(
-            oPOModel.getProperty(
-                "/subtotal"
-            ) || 0
-        );
-
-
-    var nTax =
-        Number(
-            oPOModel.getProperty(
-                "/taxAmount"
-            ) || 0
-        );
-
-
-    var nTotal =
-        Number(
-            oPOModel.getProperty(
-                "/totalAmount"
-            ) || 0
-        );
-
-
-    // =====================================================
-    // CREATE DEEP PAYLOAD
-    // =====================================================
-
-    var aPOLineItems =
-        aItems.map(function (oItem) {
-
-            return {
-
-                quantity:
-                    Number(
-                        oItem.quantity
-                    ),
-
-                unitPrice:
-                    Number(
-                        oItem.unitPrice
-                    ),
-
-                lineTotal:
-                    Number(
-                        oItem.lineTotal
-                    ),
-
-                product_ID:
-                    oItem.product_ID
-
-            };
-
-        });
-
-
-    var oPayload = {
-
-        dealer_ID:
-            sDealerID,
-
-        orderDate:
-            sOrderDate,
-
-        status:
-            "PENDING",
-
-        totalAmount:
-            nTotal,
-
-        taxAmount:
-            nTax,
-
-        items:
-            aPOLineItems
-
-    };
-
-
-    console.log(
-        "Purchase Order Payload:",
-        oPayload
-    );
-
-
-    // =====================================================
-    // CREATE PURCHASE ORDER + ITEMS
-    // =====================================================
-
-    try {
-
-        var oPurchaseModel =
-            this.getOwnerComponent()
-                .getModel("purchase");
-
-
-        var oPOListBinding =
-            oPurchaseModel.bindList(
-                "/PurchaseOrders"
-            );
-
-
-        /*
-         * Deep create:
-         *
-         * PurchaseOrders
-         *       |
-         *       └── items[]
-         *
-         * CAP will create the composition
-         * POLineItems automatically.
-         */
-
-        var oPOContext =
-            oPOListBinding.create(
-                oPayload
-            );
-
-
-        // Wait until backend creation finishes
-
-        await oPOContext.created();
-
-
-        // Get server response
-
-        var oCreatedPO =
-            oPOContext.getObject();
-
-
-        var sPONumber =
-            oCreatedPO &&
-            oCreatedPO.poNumber
-                ? oCreatedPO.poNumber
-                : "Purchase Order";
-
-
-        // =====================================================
-        // SUCCESS
-        // =====================================================
-
-        MessageBox.success(
-            sPONumber +
-            " created successfully.",
-            {
-
-                onClose: function () {
-
-                    this.getOwnerComponent()
-                        .getRouter()
-                        .navTo(
-                            "PurchaseOrders"
+                        MessageBox.error(
+                            "Please select a product for item " +
+                            (i + 1) +
+                            "."
                         );
 
-                }.bind(this)
-
-            }
-        );
+                        return;
+                    }
 
 
-    } catch (oError) {
+                    if (
+                        Number(oItem.quantity || 0) <= 0
+                    ) {
 
-        console.error(
-            "Create Purchase Order failed:",
-            oError
-        );
+                        MessageBox.error(
+                            "Quantity must be greater than zero for item " +
+                            (i + 1) +
+                            "."
+                        );
+
+                        return;
+                    }
 
 
-        MessageBox.error(
-            this._getErrorMessage(
-                oError
-            )
-        );
-    }
+                    if (
+                        Number(oItem.unitPrice || 0) <= 0
+                    ) {
+
+                        MessageBox.error(
+                            "No valid ACTIVE price found for item " +
+                            (i + 1) +
+                            "."
+                        );
+
+                        return;
+                    }
+
+                }
+
+
+                // =====================================================
+                // CALCULATE TOTALS
+                // =====================================================
+
+                this._calculateTotals();
+
+
+                var nSubtotal =
+                    Number(
+                        oPOModel.getProperty(
+                            "/subtotal"
+                        ) || 0
+                    );
+
+
+                var nTax =
+                    Number(
+                        oPOModel.getProperty(
+                            "/taxAmount"
+                        ) || 0
+                    );
+
+
+                var nTotal =
+                    Number(
+                        oPOModel.getProperty(
+                            "/totalAmount"
+                        ) || 0
+                    );
+
+
+                // =====================================================
+                // CREATE DEEP PAYLOAD
+                // =====================================================
+
+                var aPOLineItems =
+                    aItems.map(function (oItem) {
+
+                        return {
+
+                            quantity:
+                                Number(
+                                    oItem.quantity
+                                ),
+
+                            unitPrice:
+                                Number(
+                                    oItem.unitPrice
+                                ),
+
+                            lineTotal:
+                                Number(
+                                    oItem.lineTotal
+                                ),
+
+                            product_ID:
+                                oItem.product_ID
+
+                        };
+
+                    });
+
+
+                var oPayload = {
+
+                    dealer_ID:
+                        sDealerID,
+
+                    orderDate:
+                        sOrderDate,
+
+                    status:
+                        "PENDING",
+
+                    totalAmount:
+                        nTotal,
+
+                    taxAmount:
+                        nTax,
+
+                    items:
+                        aPOLineItems
+
+                };
+
+
+                console.log(
+                    "Purchase Order Payload:",
+                    oPayload
+                );
+
+
+                // =====================================================
+                // CREATE PURCHASE ORDER + ITEMS
+                // =====================================================
+
+                try {
+
+                    var oPurchaseModel =
+                        this.getOwnerComponent()
+                            .getModel("purchase");
+
+
+                    var oPOListBinding =
+                        oPurchaseModel.bindList(
+                            "/PurchaseOrders"
+                        );
+
+
+                    /*
+                    * Deep create:
+                    *
+                    * PurchaseOrders
+                    *       |
+                    *       └── items[]
+                    *
+                    * CAP will create the composition
+                    * POLineItems automatically.
+                    */
+
+                    var oPOContext =
+                        oPOListBinding.create(
+                            oPayload
+                        );
+
+
+                    // Wait until backend creation finishes
+
+                    await oPOContext.created();
+
+
+                    // Get server response
+
+                    var oCreatedPO =
+                        oPOContext.getObject();
+
+
+                    var sPONumber =
+                        oCreatedPO &&
+                        oCreatedPO.poNumber
+                            ? oCreatedPO.poNumber
+                            : "Purchase Order";
+
+
+                    // =====================================================
+                    // SUCCESS
+                    // =====================================================
+
+                    MessageBox.success(
+                        sPONumber +
+                        " created successfully.",
+                        {
+
+                            onClose: function () {
+
+                                this.getOwnerComponent()
+                                    .getRouter()
+                                    .navTo(
+                                        "PurchaseOrders"
+                                    );
+
+                            }.bind(this)
+
+                        }
+                    );
+
+
+                } catch (oError) {
+
+                    console.error(
+                        "Create Purchase Order failed:",
+                        oError
+                    );
+
+
+                    MessageBox.error(
+                        this._getErrorMessage(
+                            oError
+                        )
+                    );
+                }
 },
 
 

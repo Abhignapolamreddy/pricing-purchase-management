@@ -36,6 +36,34 @@ sap.ui.define([
                 );
 
                 this._loadDashboard();
+
+                var oChart = this.byId('idVizFrame');
+                console.log(this.getOwnerComponent().getModel("purchase"));
+                oChart.setVizProperties({
+
+                    plotArea : {
+                        dataLabel : {
+                            visible : true,
+                            type : "value"
+                        }
+                    },
+
+                    title : {
+                        visible : true,
+                        text: "Region Vs Purchase Value"
+                    },
+
+                    // valueAxis : {
+                    //     visible : true,
+                    //     text : "Employee Salary"
+                    // },
+                    // categoryAxis : {
+                    //     visible : true,
+                    //     text : "Employee"
+                    // }
+        
+                })
+
             },
 
 
