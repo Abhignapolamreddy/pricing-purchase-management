@@ -4,20 +4,25 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
-    "sap/ui/core/Fragment"
+    "sap/ui/core/Fragment",
+    
+    "../model/formatter"
 ], function (
     Controller,
     Filter,
     FilterOperator,
     MessageToast,
     MessageBox,
-    Fragment
+    Fragment,
+    formatter
 ) {
     "use strict";
 
     return Controller.extend(
         "purchasemanagement.controller.PriceMaster",
         {
+
+            formatter: formatter,
 
             // =========================================================
             // INIT

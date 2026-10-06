@@ -13,6 +13,13 @@ sap.ui.define([
         },
 
         init() {
+
+            
+            // AnalyticMap.GeoJSONURL = sap.ui.require.toUrl( "pricingmaster/model/india_5_regions.geojson" );
+
+            // console.log(sap.ui.require.toUrl( "pricingmaster/model/india_5_regions.geojson" ));
+             
+
             // call the base component's init function
             UIComponent.prototype.init.apply(this, arguments);
 

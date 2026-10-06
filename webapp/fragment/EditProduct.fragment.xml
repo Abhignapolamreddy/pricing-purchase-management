@@ -37,28 +37,19 @@
                     required="true"/>
 
                 <Select
-                    id="epSelCat001"
+                    id="cpSelCatEdit001"
                     width="100%"
-                    forceSelection="true"
+                    forceSelection="false"
+                    selectedKey=""
                     items="{
-                        path: 'purchase>/Categories',
-                        filters: [
-                            {
-                                path: 'active',
-                                operator: 'EQ',
-                                value1: true
-                            }
-                        ],
-                        sorter: {
-                            path: 'categoryName',
-                            descending: false
-                        }
+                        path: 'purchase>/Products',
+                        parameters: { $apply: 'groupby((category))' }
                     }">
 
                     <core:Item
-                        id="epItemCat001"
-                        key="{purchase>ID}"
-                        text="{purchase>categoryName}"/>
+                        id="cpItemCatEdit001"
+                        key="{purchase>category}"
+                        text="{purchase>category}"/>
 
                 </Select>
 

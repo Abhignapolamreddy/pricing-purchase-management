@@ -33,6 +33,9 @@ sap.ui.define([], function () {
                 case "SUBMITTED":
                     return "Information";
 
+                case "ACTIVE":
+                    return "Success";
+
                 case "APPROVED":
                     return "Success";
 
@@ -45,11 +48,13 @@ sap.ui.define([], function () {
                 case "REJECT":
                     return "Error";
 
+                case "BLOCKED":
+					return "Error";
+
                 default:
                     return "None";
             }
         },
-
 
         priceState: function (sStatus) {
 
@@ -84,7 +89,74 @@ sap.ui.define([], function () {
                 String(
                     oDate.getDate()
                 ).padStart(2, "0");
-        }
+        },
+
+        currency: function (vValue) {
+			var fValue = parseFloat(vValue);
+			if (isNaN(fValue)) {
+				fValue = 0;
+			}
+			var oFormat = sap.ui.core.format.NumberFormat.getFloatInstance({
+				minFractionDigits: 2,
+				maxFractionDigits: 2,
+				groupingEnabled: true
+			});
+			return "₹ " + oFormat.format(fValue);
+		},
+ 
+		/**
+		 * Formats a growth/percentage value with a +/- sign, e.g. 21.9 -> "+21.9 %"
+		 */
+		percent: function (fValue) {
+			if (fValue === undefined || fValue === null) {
+				return "";
+			}
+			var sSign = fValue > 0 ? "+" : "";
+			return sSign + parseFloat(fValue).toFixed(1) + " %";
+		},
+ 
+		/**
+		 * Maps a growth value to a ValueState / semantic color for NumericContent
+		 */
+		growthState: function (fValue) {
+			if (fValue === undefined || fValue === null) {
+				return "None";
+			}
+			return fValue >= 0 ? "Good" : "Error";
+		},
+ 
+		/**
+		 * Maps a growth value to an "up"/"down" indicator for NumericContent
+		 */
+		growthIndicator: function (fValue) {
+			return (fValue || 0) >= 0 ? "Up" : "Down";
+		},
+ 
+		/**
+		 * "8" -> "Aug" using analyticsMonth (1-12) + analyticsYear.
+		 * Strips grouping separators defensively in case a composite binding
+		 * upstream passed a type-formatted string (e.g. "2,026") instead of
+		 * the raw numeric value - see useRawValues on the Month column binding.
+		 */
+		monthLabel: function (iMonth, iYear) {
+			var aMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			var m = parseInt(String(iMonth).replace(/[^0-9-]/g, ""), 10);
+			var y = parseInt(String(iYear).replace(/[^0-9-]/g, ""), 10);
+			if (!m) {
+				return "";
+			}
+			return aMonths[m - 1] + " " + y;
+		},
+		monthlyGrowthIconClass: function (value) {
+			return "monthlyKpiIcon " + (value >= 0 ? "monthlyKpiIconGreen" : "monthlyKpiIconRed");
+		},
+		monthlyGrowthLabel: function (value) {
+			if (value === undefined || value === null) return "";
+			return (value >= 0 ? "↑ " : "↓ ") + Math.abs(value).toFixed(1) + "% vs last month";
+		},
+		monthlyGrowthDeltaClass: function (value) {
+			return "monthlyKpiDelta " + (value >= 0 ? "monthlyKpiDeltaUp" : "monthlyKpiDeltaDown");
+		}
 
     };
 });

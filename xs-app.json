@@ -3,9 +3,37 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/odata/(.*)$",
-      "target": "/odata/$1",
-      "destination": "dealer",
+      "source": "^/odata/v4/purchase-order/(.*)$",
+      "target": "/odata/v4/purchase-order/$1",
+      "destination": "TAFE_CONN",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/odata/v4/analytics/(.*)$",
+      "target": "/odata/v4/analytics/$1",
+      "destination": "TAFE_CONN",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/odata/v4/dealer/(.*)$",
+      "target": "/odata/v4/dealer/$1",
+      "destination": "TAFE_CONN",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/inventory/(.*)$",
+      "target": "/inventory/$1",
+      "destination": "TAFE_CONN",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/pricing/(.*)$",
+      "target": "/pricing/$1",
+      "destination": "TAFE_CONN",
       "authenticationType": "none",
       "csrfProtection": false
     },

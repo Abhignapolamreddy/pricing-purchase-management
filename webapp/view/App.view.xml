@@ -168,11 +168,19 @@
                     <!-- ANALYTICS -->
                     <!-- ================================================= -->
 
-                    <tnt:NavigationListItem
-                        id="analyticsNavigation"
-                        key="analytics"
+                    <tnt:NavigationListItem id="navAnalytics"
                         text="Analytics"
-                        icon="sap-icon://business-objects-experience" />
+                        icon="sap-icon://business-objects-experience"
+                        key="analytics"
+                        expanded="true">
+                        <tnt:items>
+                            <tnt:NavigationListItem id="navListDealer" text="Dealer Analytics"          key="dealerAnalytics"/>
+                            <tnt:NavigationListItem id="navListPurchse" text="Purchase Order Analytics"  key="purchaseOrderAnalytics"/>
+                            <tnt:NavigationListItem id="navListProduct" text="Product Sales Analytics"   key="productSalesAnalytics"/>
+                            <tnt:NavigationListItem id="navListPricing" text="Pricing Analytics"         key="pricingAnalytics"/>
+                            <tnt:NavigationListItem id="navListMonthly" text="Monthly Analytics"         key="monthlyAnalytics"/>
+                        </tnt:items>
+                    </tnt:NavigationListItem>
 
                 </tnt:NavigationList>
 

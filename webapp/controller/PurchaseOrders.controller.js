@@ -650,6 +650,7 @@ sap.ui.define([
                                             "PurchaseOrderService.submitPO(...)",
                                             oContext
                                         );
+ console.log(oAction);
  
                                     await oAction.execute();
  

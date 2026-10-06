@@ -2,6 +2,7 @@
     controllerName="purchasemanagement.controller.EditPurchaseOrder"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
     displayBlock="true">
 
     <Page
@@ -39,7 +40,7 @@
 
                     <content>
 
-                        <SimpleForm
+                        <form:SimpleForm
                             id="editPurchaseOrder_informationForm"
                             editable="true"
                             layout="ResponsiveGridLayout">
@@ -90,7 +91,7 @@
                                 value="{purchase>dealer/dealerName}"
                                 editable="false" />
 
-                        </SimpleForm>
+                        </form:SimpleForm>
 
                     </content>
 

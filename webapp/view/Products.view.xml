@@ -83,37 +83,21 @@
                         id="productsCategorySelect"
                         width="16rem"
                         selectedKey=""
-                        forceSelection="true"
+                        forceSelection="false"
+                        items="{
+                            path: 'purchase>/Products',
+                            parameters: {
+                                $apply: 'groupby((category))'
+                            }
+                        }"
                         change=".onCategoryChange">
 
-                        <!-- All Categories -->
-
-                        <core:Item
-                            id="productsAllCategoryItem"
-                            key=""
-                            text="All Categories"/>
-
-                        <!-- Categories -->
-
-                        <items
-                            id="productsCategoryItems"
-                            path="purchase>/Categories"
-                            sorter="{
-                                path: 'categoryName',
-                                descending: false
-                            }"
-                            filters="[
-                                {
-                                    path: 'active',
-                                    operator: 'EQ',
-                                    value1: true
-                                }
-                            ]">
+                        <items>
 
                             <core:Item
                                 id="productsCategoryItem"
-                                key="{purchase>ID}"
-                                text="{purchase>categoryName}"/>
+                                key="{purchase>category}"
+                                text="{purchase>category}"/>
 
                         </items>
 
@@ -145,7 +129,7 @@
                     items="{
                         path: 'purchase>/Products',
                         parameters: {
-                            $expand: 'category,inventory'
+                            $expand: 'inventory'
                         },
                         filters: [
                             {
@@ -325,7 +309,7 @@
 
                                 <Text
                                     id="productsCategoryText"
-                                    text="{purchase>category/categoryName}"/>
+                                    text="{purchase>category}"/>
 
 
                                 <!-- Unit Price -->
@@ -350,8 +334,13 @@
 
                                 <ObjectStatus
                                     id="productsStatusObject"
+                                    text="{= ${purchase>active} === true ? 'ACTIVE' : 'INACTIVE'}"
+                                    state="{= ${purchase>active} === true ? 'Success' : 'Error'}"/>
+
+                                <!-- <ObjectStatus
+                                    id="productsStatusObject"
                                     text="ACTIVE"
-                                    state="Success"/>
+                                    state="Success"/> -->
 
                             </cells>
 

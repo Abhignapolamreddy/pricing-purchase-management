@@ -17,7 +17,20 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /odata
-            url: https://6a738d3btrial-dev-tafe-srv.cfapps.us10-003.hana.ondemand.com
+            url: https://c03c15a0trial-dev-tafe-srv.cfapps.us10-001.hana.ondemand.com
+            destination: TAFE_CONN
+          - path: /odata/v4/analytics/
+            url: https://c03c15a0trial-dev-tafe-srv.cfapps.us10-001.hana.ondemand.com
+            destination: TAFE_CONN
+          - path: /odata/v4/dealer/
+            url: https://c03c15a0trial-dev-tafe-srv.cfapps.us10-001.hana.ondemand.com
+            destination: TAFE_CONN
+          - path: /inventory/
+            url: https://c03c15a0trial-dev-tafe-srv.cfapps.us10-001.hana.ondemand.com
+            destination: TAFE_CONN
+          - path: /pricing/
+            url: https://c03c15a0trial-dev-tafe-srv.cfapps.us10-001.hana.ondemand.com
+            destination: TAFE_CONN
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -41,6 +54,22 @@ server:
           - urlPath: /odata/v4/purchase-order
             metadataPath: ./webapp/localService/mainService/metadata.xml
             mockdataPath: ./webapp/localService/mainService/data
+            generateMockData: true
+          - urlPath: /odata/v4/analytics
+            metadataPath: ./webapp/localService/analytics/metadata.xml
+            mockdataPath: ./webapp/localService/analytics/data
+            generateMockData: true
+          - urlPath: /odata/v4/dealer
+            metadataPath: ./webapp/localService/dealer/metadata.xml
+            mockdataPath: ./webapp/localService/dealer/data
+            generateMockData: true
+          - urlPath: /inventory
+            metadataPath: ./webapp/localService/inventory/metadata.xml
+            mockdataPath: ./webapp/localService/inventory/data
+            generateMockData: true
+          - urlPath: /pricing
+            metadataPath: ./webapp/localService/pricing/metadata.xml
+            mockdataPath: ./webapp/localService/pricing/data
             generateMockData: true
         annotations: []
 builder:

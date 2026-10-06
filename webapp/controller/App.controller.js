@@ -25,6 +25,34 @@ sap.ui.define([
                 this.oSideNavigation =
                     this.byId("sideNavigation");
 
+                  // Listen to every route change
+                this.oRouter.attachRouteMatched( this._onRouteMatched, this );
+
+            },
+
+
+            // =========================================================
+            // ROUTE MATCHED
+            // =========================================================
+
+            _onRouteMatched: function (oEvent) {
+
+                var sRouteName = oEvent.getParameter("name");
+
+                console.log( "Current route:", sRouteName );
+
+                if (sRouteName === "Purchase") {
+
+                    this.oSideNavigation.setExpanded(false);
+
+                }
+
+                else {
+
+                    this.oSideNavigation.setExpanded(true);
+
+                }
+
             },
 
 
@@ -173,20 +201,20 @@ sap.ui.define([
 
 
                     // =================================================
-// STOCK
-// =================================================
+                    // STOCK
+                    // =================================================
 
-case "stock":
+                    case "stock":
 
-    console.log(
-        "Opening Stock page"
-    );
+                        console.log(
+                            "Opening Stock page"
+                        );
 
-    this.oRouter.navTo(
-        "Stock"
-    );
+                        this.oRouter.navTo(
+                            "Stock"
+                        );
 
-    break;
+                        break;
 
 
                     // =================================================
@@ -231,6 +259,30 @@ case "stock":
                             "Analytics"
                         );
 
+                        break;
+
+                    // =================================================
+                    // ANALYTICS
+                    // =================================================
+
+                    case "dealerAnalytics":
+                        this.oRouter.navTo("DealerAnalytics");
+                        break;
+                    
+                    case "purchaseOrderAnalytics":
+                        this.oRouter.navTo("PurchaseOrderAnalytics");
+                        break;
+
+                    case "productSalesAnalytics":
+                        this.oRouter.navTo("ProductSalesAnalytics");
+                        break;
+
+                    case "pricingAnalytics":
+                        this.oRouter.navTo("PricingAnalytics");
+                        break;
+
+                    case "monthlyAnalytics":
+                        this.oRouter.navTo("MonthlyAnalytics");
                         break;
 
 

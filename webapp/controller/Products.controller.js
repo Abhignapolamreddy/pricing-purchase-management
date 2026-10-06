@@ -162,8 +162,8 @@ sap.ui.define([
 
             onCategoryChange: function (oEvent) {
 
-                var sCategoryId =
-                    oEvent.getParameter("selectedKey");
+                var sCategoryId = oEvent.getSource().getSelectedKey();
+console.log(sCategoryId);
 
                 var oTable =
                     this.byId("productsTable");
@@ -194,7 +194,7 @@ sap.ui.define([
 
                     aFilters.push(
                         new Filter(
-                            "category_ID",
+                            "category",
                             FilterOperator.EQ,
                             sCategoryId
                         )
@@ -502,6 +502,12 @@ sap.ui.define([
                         "cpInpName001"
                     );
 
+                var oCodeInput =
+                    Fragment.byId(
+                        sViewId,
+                        "cpInpCode001"
+                    );
+
                 var oCategorySelect =
                     Fragment.byId(
                         sViewId,
@@ -515,7 +521,7 @@ sap.ui.define([
                     );
 
                 if (
-                    !oNameInput ||
+                    !oNameInput || !oCodeInput ||
                     !oCategorySelect ||
                     !oPriceInput
                 ) {
@@ -530,6 +536,11 @@ sap.ui.define([
 
                 var sProductName =
                     oNameInput
+                        .getValue()
+                        .trim();
+
+                var sProductCode =
+                    oCodeInput
                         .getValue()
                         .trim();
 
@@ -551,6 +562,16 @@ sap.ui.define([
 
                     MessageBox.warning(
                         "Product Name is mandatory."
+                    );
+
+                    return;
+
+                }
+
+                if (!sProductCode) {
+
+                    MessageBox.warning(
+                        "Product Code is mandatory."
                     );
 
                     return;
@@ -615,7 +636,9 @@ sap.ui.define([
                             productName:
                                 sProductName,
 
-                            category_ID:
+                            productCode: sProductCode,
+
+                            category:
                                 sCategoryId,
 
                             unitPrice:
@@ -731,6 +754,7 @@ sap.ui.define([
 
                     var oProduct =
                         await oContext.requestObject();
+console.log(oProduct);
 
 
                     // -------------------------------------------------
@@ -767,12 +791,11 @@ sap.ui.define([
                     var sCategory = "-";
 
                     if (
-                        oProduct.category &&
-                        oProduct.category.categoryName
+                        oProduct.category 
                     ) {
 
                         sCategory =
-                            oProduct.category.categoryName;
+                            oProduct.category;
 
                     }
 
@@ -990,7 +1013,7 @@ sap.ui.define([
                     if (oCategorySelect) {
 
                         oCategorySelect.setSelectedKey(
-                            oProduct.category_ID || ""
+                            oProduct.category || ""
                         );
 
                     }
@@ -1154,7 +1177,7 @@ sap.ui.define([
                     );
 
                     this._oEditContext.setProperty(
-                        "category_ID",
+                        "category",
                         sCategoryId
                     );
 
